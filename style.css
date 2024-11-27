@@ -1,5 +1,9 @@
 body{
   margin-top: 7%;
+  background-color: #F5F5DC;
+}
+
+.dark-green{
   background-color: #004225;
 }
 
@@ -15,6 +19,10 @@ h1 {
   font-weight: 400;
   font-style: normal;
   font-size: 5rem;
+  color: #004225;
+}
+
+.dark-green h1{
   color: #FFB000;
 }
 
@@ -37,8 +45,12 @@ h1 {
 }
 
 p{
-  color: white;
+  color: #004225;
   text-align: center;
+}
+
+.dark-green p{
+  color: white;
 }
 
 .btn-primary{
@@ -50,4 +62,16 @@ p{
 
 .btn-primary:hover{
   background-color: #FFB000;
+}
+
+.btn-primary:active:focus{
+  background-color: #FFB000;
+}
+
+.orange{
+  background-color: #FFB000;
+}
+
+.blockquote p{
+  font-size: 2rem;;
 }
