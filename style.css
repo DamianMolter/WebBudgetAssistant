@@ -1,10 +1,14 @@
 body{
-  margin-top: 7%;
   background-color: #F5F5DC;
 }
 
 .dark-green{
   background-color: #004225;
+}
+
+header.dark-green{
+  background-color: #004225;
+  width: 100%;
 }
 
 body h3 {
@@ -34,11 +38,36 @@ h1 {
   border-left: solid 5px #FFB000;
 }
 
-.container.passion{
+div.container.passion{
   display: flex;
   justify-content: center;
   border-left: none;
+  padding: 5%;
 }
+
+.container.navbar{
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  justify-content: ;
+}
+
+.nav-link{
+  margin-left: 50px;
+  margin-right: 50px;
+  text-decoration: none;
+  color: #FFCF9D;
+}
+
+.nav-link:hover{
+  background-color: #FFCF9D;
+  color: #004225;
+}
+
+.nav-link:active{
+  color: #FFCF9D;
+}
+
 
 #app-name{
   background-color: #004225;
