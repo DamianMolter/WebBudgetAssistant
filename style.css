@@ -1,5 +1,6 @@
 body{
   background-color: #F5F5DC;
+  color: #004225;
 }
 
 .dark-green{
@@ -26,7 +27,7 @@ h1, h2 {
   color: #004225;
 }
 
-h4 {
+h4, h5 {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
   font-style: normal;
