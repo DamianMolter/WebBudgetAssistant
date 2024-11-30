@@ -6,7 +6,7 @@ body{
   background-color: #004225;
 }
 
-header.dark-green{
+div.dark-green{
   background-color: #004225;
   width: 100%;
 }
@@ -18,11 +18,25 @@ body h3 {
   color: white;
 }
 
-h1 {
+h1, h2 {
   font-family: "Charm", cursive;
   font-weight: 400;
   font-style: normal;
   font-size: 5rem;
+  color: #004225;
+}
+
+h4 {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #004225;
+}
+
+label{
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   color: #004225;
 }
 
@@ -49,10 +63,12 @@ div.container.passion{
   max-width: 100%;
   padding-left: 0;
   padding-right: 0;
-  justify-content: ;
+  
 }
 
 .nav-link{
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: bolder;
   margin-left: 50px;
   margin-right: 50px;
   text-decoration: none;
@@ -64,10 +80,9 @@ div.container.passion{
   color: #004225;
 }
 
-.nav-link:active{
-  color: #FFCF9D;
+.nav-link:visited{
+  text-decoration: none;
 }
-
 
 #app-name{
   background-color: #004225;
@@ -84,12 +99,25 @@ p{
 
 .btn-primary{
   background-color: #FFCF9D;
-  color: black;
+  color: #004225;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 900;
+  border: solid #004225;
+}
+
+.btn-secondary{
+  background-color: #FFCF9D;
+  color: #004225;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 900;
+  border: solid #004225;
 }
 
 .btn-primary:hover{
+  background-color: #FFB000;
+}
+
+.btn-secondary:hover{
   background-color: #FFB000;
 }
 
@@ -103,4 +131,10 @@ p{
 
 .blockquote p{
   font-size: 2rem;;
+}
+
+@media(max-width: 1200px){
+  .nav.nav-pills{
+    flex-direction: column;
+  }
 }
