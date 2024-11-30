@@ -66,6 +66,11 @@ div.container.passion{
   
 }
 
+.dropdown{
+  display: flex;
+  justify-content: right;
+}
+
 .nav-link{
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: bolder;
