@@ -64,7 +64,40 @@ div.container.passion{
   max-width: 100%;
   padding-left: 0;
   padding-right: 0;
-  
+}
+
+.container.table{
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding-top: 50px;
+}
+
+td{
+  font-family: "IBM Plex Sans", sans-serif;;
+}
+
+.col-title{
+  font-weight: 900;
+  font-size: larger;
+}
+
+tr.odd-row td{
+  background-color: #FFCF9D;
+  color: #004225;
+}
+
+tr.even-row td{
+  background-color: #F5F5DC;
+  color: #004225;
+}
+
+tr.odd-row > td:hover{
+  background-color: #FFB000;
+}
+
+tr.even-row > td:hover{
+  background-color: #FFB000;
 }
 
 .dropdown{
@@ -141,6 +174,10 @@ p{
 
 @media(max-width: 1200px){
   .nav.nav-pills{
+    flex-direction: column;
+  }
+
+  .container.table{
     flex-direction: column;
   }
 }
