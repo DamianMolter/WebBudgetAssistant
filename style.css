@@ -180,12 +180,21 @@ p{
   font-size: 2rem;;
 }
 
+#income-piechart, #expense-piechart{
+  display: flex;
+  justify-content: center;
+}
+
 @media(max-width: 1200px){
   .nav.nav-pills{
     flex-direction: column;
   }
 
   .container.table{
+    flex-direction: column;
+  }
+
+  .container.chart{
     flex-direction: column;
   }
 }
