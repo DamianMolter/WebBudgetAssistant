@@ -130,7 +130,7 @@
       </div>
 
       <div class="container table">
-        <div>
+        <div class="text-center">
           <h2>Tabela przychodów</h2>
           <table class="table table-hover">
             <tr class="odd-row col-title">
@@ -155,7 +155,8 @@
             </tr>
           </table>
         </div>
-        <div><h2>Tabela Wydatków</h2>
+        <div class="text-center">
+          <h2>Tabela Wydatków</h2>
           <table class="table table-hover">
             <tr class="odd-row col-title">
               <td>Kategoria</td>
@@ -177,12 +178,30 @@
               <td>Suma</td>
               <td>3500</td>
             </tr>
-          </table><div class="table">
-          
-        </div></div>
+          </table>
+          <div class="table"></div>
+        </div>
+      </div>
+
+      <div class="container text-center py-5">
+        <h6>
+          Twój bilans wynosi 1020 PLN! Gratulacje! Doskonale zarządzasz swoimi
+          finansami!
+        </h6>
       </div>
     </main>
 
+    <hr />
+    <aside>
+      <div class="container d-flex justify-content-center"><div id="income-piechart"></div>
+      <div id="expense-piechart"></div></div>
+      
+
+    </aside>
+    <script
+        type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js"
+      ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
