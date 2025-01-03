@@ -70,8 +70,11 @@ div.container.passion{
 
 .container.navbar{
   max-width: 100%;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
+}
+
+.container #mobile-menu{
+  display: none;
 }
 
 .container.table{
@@ -186,8 +189,16 @@ p{
 }
 
 @media(max-width: 1200px){
-  .nav.nav-pills{
-    flex-direction: column;
+  .container.navbar{
+    display: none;
+  }
+
+  .container #mobile-menu{
+    display: flex;
+  }
+
+  .dropdown ul{
+    background-color: #004225;
   }
 
   .container.table{
