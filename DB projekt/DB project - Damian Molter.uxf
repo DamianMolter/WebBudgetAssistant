@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>17</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>34</x>
+      <y>272</y>
+      <w>272</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>users
+--
+PK userID: int
+	firstName: varchar
+	email: varchar
+	password: varchar</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>493</x>
+      <y>153</y>
+      <w>391</w>
+      <h>323</h>
+    </coordinates>
+    <panel_attributes>operations
+--
+PK operationID: int
+	operationDate: date
+	amount: float
+	commentary: varchar
+FK userID: int
+FK operationCategoryID
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>289</x>
+      <y>306</y>
+      <w>238</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1037</x>
+      <y>306</y>
+      <w>442</w>
+      <h>408</h>
+    </coordinates>
+    <panel_attributes>categories
+--
+PK operationCategoryID: int
+categoryName: varchar
+isActive: bool
+type: varchar (income or expense)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>867</x>
+      <y>340</y>
+      <w>204</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
