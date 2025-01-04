@@ -188,6 +188,10 @@ p{
   justify-content: center;
 }
 
+.dropdown ul{
+  background-color: #004225;
+}
+
 @media(max-width: 1200px){
   .container.navbar{
     display: none;
@@ -195,10 +199,6 @@ p{
 
   .container #mobile-menu{
     display: flex;
-  }
-
-  .dropdown ul{
-    background-color: #004225;
   }
 
   .container.table{
