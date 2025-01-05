@@ -71,8 +71,18 @@ session_start();
               ?>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" />
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="passwordOne" />
               <label for="floatingPassword">Hasło</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Powtórz hasło" name="passwordTwo" />
+              <?php
+              if (isset($_SESSION['passwordError'])) {
+                echo $_SESSION['passwordError'];
+                unset($_SESSION['passwordError']);
+              }
+              ?>
+              <label for="floatingPassword">Powtórz hasło</label>
             </div>
             <button class="btn btn-primary px-5 btn-lg rounded-pill text-center mx-3" type="submit">
               Zarejestruj się
