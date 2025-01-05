@@ -1,15 +1,14 @@
 <?php
-if (isset($isUserLogged)) {
-      header('Location: index.html');
-      exit();
-}
+session_start();
 
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $password = $_POST["password"];
 
 if (isset($_POST['email'])) {
       if (empty($email)) {
-            
+            $_SESSION['loginError']=true;
+            header('Location: login.php');
+            exit();
       } else {
             require_once 'connect.php';
             $query = $db->prepare('SELECT email, password FROM users WHERE email=:email AND password = :password');
@@ -20,14 +19,18 @@ if (isset($_POST['email'])) {
             $user = $query->fetch();
 
             if($user && $password == $user['password']) {
-                  header('Location: summary.html');
+                  $_SESSION['isUserLogged']=true;
+                  unset($_SESSION['loginError']);
+                  header('Location: summary.php');
                   exit();
             } else {
-                  echo 'Błędne dane logowania';
+                  $_SESSION['loginError']=true;
+                  header("Location: login.php");
+                  exit();
             }
       }
 } else {
-      header('Location: index.html');
+      header('Location: login.php');
       exit();
 }
 

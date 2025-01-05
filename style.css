@@ -42,6 +42,11 @@ h4, h5 {
   color: #004225;
 }
 
+.error{
+  color: red;
+  font-weight: bolder;
+}
+
 label{
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
