@@ -56,8 +56,19 @@ session_start();
               ?>
             </div>
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" />
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="<?php
+                if (isset($_SESSION['givenEmail'])) {
+                  echo $_SESSION['givenEmail'];
+                  unset($_SESSION['givenEmail']);
+                }
+                ?>" />
               <label for="floatingInput">Email</label>
+              <?php
+              if (isset($_SESSION['emailError'])) {
+                echo $_SESSION['emailError'];
+                unset($_SESSION['emailError']);
+              }
+              ?>
             </div>
             <div class="form-floating mb-3">
               <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" />
