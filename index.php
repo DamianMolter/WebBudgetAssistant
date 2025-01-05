@@ -35,7 +35,7 @@
             Zapanuj nad swoimi finansami już dziś!
           </p>
           <div class="d-flex-inline gap-5 mb-5 col-12">
-            <a href="./login.html"
+            <a href="./login.php"
               ><button
                 class="btn btn-primary px-5 btn-lg rounded-pill text-center mx-3"
                 type="button"
@@ -44,7 +44,7 @@
               </button></a
             >
 
-            <a href="./register.html"
+            <a href="./register.php"
               ><button
                 class="btn btn-primary px-5 btn-lg rounded-pill text-center mx-3"
                 type="button"
