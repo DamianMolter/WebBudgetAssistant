@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
-  header('Location: summary.php');
-  exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +21,7 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
 <body>
   <header>
     <div class="text-center">
-      <h1>Zaloguj się</h1>
+      <h1>Zarejestruj się</h1>
     </div>
   </header>
 
@@ -36,46 +31,51 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
         <div class="col-lg-7 text-center text-lg-start">
           <blockquote class="blockquote">
             <p class="mb-0">
-              „Najpewniejszą drogą do sukcesu jest próbować,
-              jeszcze ten jeden raz.”
+              „Nigdy nie wmawiaj sobie, że nie dasz rady. Pewność siebie to
+              podstawa osiągnięcia sukcesu.”
             </p>
           </blockquote>
         </div>
         <div class="col-md-10 mx-auto col-lg-5">
-          <form action="login-verify.php" class="p-4 p-md-5 border rounded-5 bg-body-tertiary" method="post">
+          <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary" action="register-verify.php" method="post">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="<?php 
-              if (isset($_SESSION['loginError'])) {
-                echo $_SESSION['givenEmail'];
-              }
+              <input type="text" class="form-control" id="floatingInput" placeholder="Imię" name="name" value="<?php
+                if (isset($_SESSION['givenName'])) {
+                  echo $_SESSION['givenName'];
+                  unset($_SESSION['givenName']);
+                }
+                
               ?>" />
+
+              <label for="floatingInput">Imię</label>
+              <?php
+              if (isset($_SESSION['nameError'])) {
+                echo $_SESSION['nameError'];
+                unset($_SESSION['nameError']);
+              }
+              ?>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" />
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" value="<?php 
-              if (isset($_SESSION['loginError'])) {
-                echo $_SESSION['givenPassword'];
-              }
-              ?>" />
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" />
               <label for="floatingPassword">Hasło</label>
             </div>
-            <?php
-            if (isset($_SESSION['loginError'])) {
-              echo "<span class='error'>Błędne dane logowania!</span>";
-            }
-            ?>
             <button class="btn btn-primary px-5 btn-lg rounded-pill text-center mx-3" type="submit">
-              Zaloguj się
+              Zarejestruj się
             </button>
-
-
-
-
           </form>
         </div>
       </div>
     </div>
+
   </main>
+
+  <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+    <p class="mb-1">© 2024 By Damian Molter</p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
