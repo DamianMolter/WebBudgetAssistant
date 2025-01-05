@@ -71,11 +71,21 @@ session_start();
               ?>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="passwordOne" />
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="passwordOne" value="<?php
+                if (isset($_SESSION['givenPasswordOne'])) {
+                  echo $_SESSION['givenPasswordOne'];
+                  unset($_SESSION['givenPasswordOne']);
+                }
+                ?>" />
               <label for="floatingPassword">Hasło</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Powtórz hasło" name="passwordTwo" />
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Powtórz hasło" name="passwordTwo" value="<?php
+                if (isset($_SESSION['givenPasswordTwo'])) {
+                  echo $_SESSION['givenPasswordTwo'];
+                  unset($_SESSION['givenPasswordTwo']);
+                }
+                ?>" />
               <?php
               if (isset($_SESSION['passwordError'])) {
                 echo $_SESSION['passwordError'];
