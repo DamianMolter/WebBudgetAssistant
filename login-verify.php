@@ -7,6 +7,8 @@ $password = $_POST["password"];
 if (isset($_POST['email'])) {
       if (empty($email)) {
             $_SESSION['loginError']=true;
+            $_SESSION['givenEmail']=$_POST['email'];
+            $_SESSION['givenPassword']=$_POST['password'];
             header('Location: login.php');
             exit();
       } else {
@@ -25,6 +27,8 @@ if (isset($_POST['email'])) {
                   exit();
             } else {
                   $_SESSION['loginError']=true;
+                  $_SESSION['givenEmail']=$_POST['email'];
+                  $_SESSION['givenPassword']=$_POST['password'];
                   header("Location: login.php");
                   exit();
             }
