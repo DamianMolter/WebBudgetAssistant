@@ -44,11 +44,19 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
         <div class="col-md-10 mx-auto col-lg-5">
           <form action="login-verify.php" class="p-4 p-md-5 border rounded-5 bg-body-tertiary" method="post">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" />
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="<?php 
+              if (isset($_SESSION['loginError'])) {
+                echo $_SESSION['givenEmail'];
+              }
+              ?>" />
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" />
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" value="<?php 
+              if (isset($_SESSION['loginError'])) {
+                echo $_SESSION['givenPassword'];
+              }
+              ?>" />
               <label for="floatingPassword">Hasło</label>
             </div>
             <div class="checkbox mb-3">
