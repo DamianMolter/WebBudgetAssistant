@@ -59,11 +59,6 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
               ?>" />
               <label for="floatingPassword">Hasło</label>
             </div>
-            <div class="checkbox mb-3">
-              <label>
-                <input type="checkbox" value="remember-me"> Zapamiętaj mnie
-              </label>
-            </div>
             <?php
             if (isset($_SESSION['loginError'])) {
               echo "<span class='error'>Błędne dane logowania!</span>";
