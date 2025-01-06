@@ -7,28 +7,27 @@ $password = $_POST["password"];
 if (isset($_POST['email'])) {
       if (empty($email)) {
             $_SESSION['loginError']=true;
-            $_SESSION['givenEmail']=$_POST['email'];
-            $_SESSION['givenPassword']=$_POST['password'];
+            $_SESSION['loginEmail']=$_POST['email'];
+            $_SESSION['loginPassword']=$_POST['password'];
             header('Location: login.php');
             exit();
       } else {
             require_once 'connect.php';
-            $query = $db->prepare('SELECT email, password FROM users WHERE email=:email AND password = :password');
+            $query = $db->prepare('SELECT id, email, password FROM users WHERE email=:email');
             $query->bindValue(':email', $email, PDO::PARAM_STR);
-            $query->bindValue(':password', $password, PDO::PARAM_STR);
             $query->execute();
 
             $user = $query->fetch();
 
-            if($user && $password == $user['password']) {
+            if(password_verify($password, $user['password'])) {
                   $_SESSION['isUserLogged']=true;
                   unset($_SESSION['loginError']);
                   header('Location: summary.php');
                   exit();
             } else {
                   $_SESSION['loginError']=true;
-                  $_SESSION['givenEmail']=$_POST['email'];
-                  $_SESSION['givenPassword']=$_POST['password'];
+                  $_SESSION['loginEmail']=$_POST['email'];
+                  $_SESSION['loginPassword']=$_POST['password'];
                   header("Location: login.php");
                   exit();
             }
