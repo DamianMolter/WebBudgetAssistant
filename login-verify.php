@@ -13,14 +13,15 @@ if (isset($_POST['email'])) {
             exit();
       } else {
             require_once 'connect.php';
-            $query = $db->prepare('SELECT id, email, password FROM users WHERE email=:email');
-            $query->bindValue(':email', $email, PDO::PARAM_STR);
-            $query->execute();
+            $loginQuery = $db->prepare('SELECT id, email, password FROM users WHERE email=:email');
+            $loginQuery->bindValue(':email', $email, PDO::PARAM_STR);
+            $loginQuery->execute();
 
-            $user = $query->fetch();
+            $user = $loginQuery->fetch();
 
             if(password_verify($password, $user['password'])) {
-                  $_SESSION['isUserLogged']=true;
+                  $_SESSION['isUserLogged'] = true;
+                  $_SESSION['loggedUserId'] = $user['id'];
                   unset($_SESSION['loginError']);
                   header('Location: summary.php');
                   exit();
