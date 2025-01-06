@@ -46,7 +46,8 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
             <div class="form-floating mb-3">
               <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="<?php 
               if (isset($_SESSION['loginError'])) {
-                echo $_SESSION['givenEmail'];
+                echo $_SESSION['loginEmail'];
+                unset($_SESSION['loginEmail']);
               }
               ?>" />
               <label for="floatingInput">Email</label>
@@ -54,7 +55,8 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
             <div class="form-floating mb-3">
               <input type="password" class="form-control" id="floatingPassword" placeholder="Hasło" name="password" value="<?php 
               if (isset($_SESSION['loginError'])) {
-                echo $_SESSION['givenPassword'];
+                echo $_SESSION['loginPassword'];
+                unset($_SESSION['loginPassword']);
               }
               ?>" />
               <label for="floatingPassword">Hasło</label>
@@ -62,6 +64,7 @@ if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
             <?php
             if (isset($_SESSION['loginError'])) {
               echo "<span class='error'>Błędne dane logowania!</span>";
+              unset($_SESSION['loginError']);
             }
             ?>
             <button class="btn btn-primary px-5 btn-lg rounded-pill text-center mx-3" type="submit">

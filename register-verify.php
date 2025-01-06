@@ -44,11 +44,11 @@ if (isset($_POST['email'])) {
 
       $connect = require_once 'connect.php';
 
-      $query = $db->prepare('SELECT email FROM users WHERE email=:email');
-      $query->bindValue(':email', $email, PDO::PARAM_STR);
-      $query->execute();
+      $registerQuery = $db->prepare('SELECT email FROM users WHERE email=:email');
+      $registerQuery->bindValue(':email', $email, PDO::PARAM_STR);
+      $registerQuery->execute();
 
-      $howManyRows = $query->fetchColumn();
+      $howManyRows = $registerQuery->fetchColumn();
 
       if ($howManyRows > 0) {
             $everythingFine = false;
