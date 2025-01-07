@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,6 +57,12 @@
               </button></a
             >
           </div>
+          <?php
+          if (isset($_SESSION['registerSuccessfull'])) {
+            echo '<p class = "success">Rejestracja zakończona sukcesem! Zaloguj się na Twoje konto!</p>';
+            unset($_SESSION['registerSuccessfull']);
+          }
+          ?>
         </div>
       </div>
     </main>

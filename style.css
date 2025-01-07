@@ -197,6 +197,11 @@ p{
   background-color: #004225;
 }
 
+p.success{
+  color: #FFB000;
+  font-weight: bolder;
+}
+
 @media(max-width: 1200px){
   .container.navbar{
     display: none;

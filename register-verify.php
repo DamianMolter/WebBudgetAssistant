@@ -44,11 +44,11 @@ if (isset($_POST['email'])) {
 
       $connect = require_once 'connect.php';
 
-      $registerQuery = $db->prepare('SELECT email FROM users WHERE email=:email');
-      $registerQuery->bindValue(':email', $email, PDO::PARAM_STR);
-      $registerQuery->execute();
+      $repeatingEmailQuery = $db->prepare('SELECT email FROM users WHERE email=:email');
+      $repeatingEmailQuery->bindValue(':email', $email, PDO::PARAM_STR);
+      $repeatingEmailQuery->execute();
 
-      $howManyRows = $registerQuery->fetchColumn();
+      $howManyRows = $repeatingEmailQuery->fetchColumn();
 
       if ($howManyRows > 0) {
             $everythingFine = false;
@@ -61,14 +61,37 @@ if (isset($_POST['email'])) {
             header("Location: register.php");
             exit();
       } else {
-            $query = $db->prepare('INSERT INTO users VALUES (NULL, :username, :password, :email)');
-            $query->bindValue(':username', $name, PDO::PARAM_STR);
-            $query->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
-            $query->bindValue(':email', $email, PDO::PARAM_STR);
-            $query->execute();
+            $registerQuery = $db->prepare('INSERT INTO users VALUES (NULL, :username, :password, :email)');
+            $registerQuery->bindValue(':username', $name, PDO::PARAM_STR);
+            $registerQuery->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
+            $registerQuery->bindValue(':email', $email, PDO::PARAM_STR);
+            $registerQuery->execute();
+
+            $newUserQuery = $db->prepare('SELECT id FROM users WHERE email=:email');
+            $newUserQuery->bindValue(':email', $email, PDO::PARAM_STR);
+            $newUserQuery->execute();
+
+            $newUser = $newUserQuery->fetch();
+            $newUserId = $newUser['id'];
+
+            $setIncomeDefaultCategoriesQuery = $db->prepare('INSERT INTO incomes_category_assigned_to_users (id, user_id, name)
+                                                                  SELECT NULL, :user_id, name FROM incomes_category_default');
+            $setIncomeDefaultCategoriesQuery->bindValue(':user_id', $newUserId, PDO::PARAM_INT);
+            $setIncomeDefaultCategoriesQuery->execute();
+
+            $setExpenseDefaultCategoriesQuery = $db->prepare('INSERT INTO expenses_category_assigned_to_users (id, user_id, name)
+                                                                  SELECT NULL, :user_id, name FROM expenses_category_default');
+            $setExpenseDefaultCategoriesQuery->bindValue(':user_id', $newUserId, PDO::PARAM_INT);
+            $setExpenseDefaultCategoriesQuery->execute();
+
+            $setPaymentMethodDefaultCategoriesQuery = $db->prepare('INSERT INTO payment_methods_assigned_to_users (id, user_id, name)
+                                                                  SELECT NULL, :user_id, name FROM payment_methods_default');
+            $setPaymentMethodDefaultCategoriesQuery->bindValue(':user_id', $newUserId, PDO::PARAM_INT);
+            $setPaymentMethodDefaultCategoriesQuery->execute();
       }
 
       header('Location: welcome.php');
+      $_SESSION['registerSuccessfull']  = true;
 
 } else {
       header('Location: register.php');
