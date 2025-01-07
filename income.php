@@ -42,21 +42,21 @@ if (!isset($_SESSION['loggedUserId'])) {
           <ul class="dropdown-menu">
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./income.html" class="nav-link py-3"
+                <a href="./income.php" class="nav-link py-3"
                   >Dodaj przychód</a
                 >
               </button>
             </li>
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./expense.html" class="nav-link py-3"
+                <a href="./expense.php" class="nav-link py-3"
                   >Dodaj wydatek</a
                 >
               </button>
             </li>
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./summary.html" class="nav-link py-3"
+                <a href="./summary.php" class="nav-link py-3"
                   >Przeglądaj bilans</a
                 >
               </button>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['loggedUserId'])) {
             </li>
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./index.html" class="nav-link py-3"
+                <a href="./logout.php" class="nav-link py-3"
                   >Wyloguj</a
                 >
               </button>
@@ -84,13 +84,13 @@ if (!isset($_SESSION['loggedUserId'])) {
         >
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <a href="./income.html" class="nav-link py-3">Dodaj przychód</a>
+              <a href="./income.php" class="nav-link py-3">Dodaj przychód</a>
             </li>
             <li class="nav-item">
-              <a href="./expense.html" class="nav-link py-3">Dodaj wydatek</a>
+              <a href="./expense.php" class="nav-link py-3">Dodaj wydatek</a>
             </li>
             <li class="nav-item">
-              <a href="./summary.html" class="nav-link py-3"
+              <a href="./summary.php" class="nav-link py-3"
                 >Przeglądaj bilans</a
               >
             </li>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['loggedUserId'])) {
               <a href="#" class="nav-link py-3">Ustawienia</a>
             </li>
             <li class="nav-item">
-              <a href="./index.html" class="nav-link py-3">Wyloguj</a>
+              <a href="./logout.php" class="nav-link py-3">Wyloguj</a>
             </li>
           </ul>
         </div>
@@ -114,7 +114,7 @@ if (!isset($_SESSION['loggedUserId'])) {
         <div class="row g-5">
           <div class="col-md-12 col-lg-12 text-center">
             <h4 class="mb-3">Szczegóły transakcji</h4>
-            <form class="needs-validation" novalidate="">
+            <form class="needs-validation" novalidate="" action="income-verify.php" method="post">
               <div class="row g-3 d-flex justify-content-center">
                 <div class="col-3">
                   <label for="address" class="form-label">Kwota</label>
@@ -123,6 +123,7 @@ if (!isset($_SESSION['loggedUserId'])) {
                       type="text"
                       class="form-control"
                       aria-label="Cash amount (with dot and two decimal places)"
+                      name="amount"
                     />
                     <span class="input-group-text">zł</span>
                   </div>
@@ -132,18 +133,29 @@ if (!isset($_SESSION['loggedUserId'])) {
                   <label for="address2" class="form-label"
                     >Data transakcji</label
                   >
-                  <input id="startDate" class="form-control" type="date" />
+                  <input id="startDate" class="form-control" type="date" name="date"/>
                 </div>
 
 
                 <div class="col-md-4">
                   <label for="state" class="form-label">Kategoria</label>
-                  <select class="form-select" id="state" required="">
-                    <option value="">Wybierz kategorię</option>
-                    <option>Wynagrodzenie</option>
-                    <option>Odsetki bankowe</option>
-                    <option>Sprzedaż na allegro</option>
-                    <option>Inny przychód</option>
+                  <select class="form-select" id="state" required="" name="incomeCategory">
+                    <option value="0">Wybierz kategorię</option>
+                    <?php
+                    
+                    require_once 'connect.php';
+                    $loadIncomeCategoriesQuery = $db->prepare('SELECT id, name FROM incomes_category_assigned_to_users
+                                                                WHERE user_id=:userId');
+                    $loadIncomeCategoriesQuery->bindValue(':userId', $_SESSION['loggedUserId'], PDO::PARAM_INT);
+                    $loadIncomeCategoriesQuery->execute();
+                    
+                    $incomeCategories= $loadIncomeCategoriesQuery->fetchAll();
+
+                    foreach ($incomeCategories as $incomeCategory) {
+                      echo '<option value = "'.$incomeCategory['id'].'">'.$incomeCategory['name'].'</option>';
+                    }
+                    ?>
+                    
                   </select>
                   <div class="invalid-feedback">Wybierz jedną z opcji</div>
                 </div>
@@ -157,6 +169,7 @@ if (!isset($_SESSION['loggedUserId'])) {
                   class="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  name="incomeComment"
                 ></textarea>
               </div>
 

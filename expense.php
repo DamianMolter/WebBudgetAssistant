@@ -42,21 +42,21 @@ if (!isset($_SESSION['loggedUserId'])) {
           <ul class="dropdown-menu">
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./income.html" class="nav-link py-3"
+                <a href="./income.php" class="nav-link py-3"
                   >Dodaj przychód</a
                 >
               </button>
             </li>
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./expense.html" class="nav-link py-3"
+                <a href="./expense.php" class="nav-link py-3"
                   >Dodaj wydatek</a
                 >
               </button>
             </li>
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./summary.html" class="nav-link py-3"
+                <a href="./summary.php" class="nav-link py-3"
                   >Przeglądaj bilans</a
                 >
               </button>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['loggedUserId'])) {
             </li>
             <li>
               <button class="dropdown-item" type="button">
-                <a href="./index.html" class="nav-link py-3"
+                <a href="./logout.php" class="nav-link py-3"
                   >Wyloguj</a
                 >
               </button>
@@ -84,13 +84,13 @@ if (!isset($_SESSION['loggedUserId'])) {
         >
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <a href="./income.html" class="nav-link py-3">Dodaj przychód</a>
+              <a href="./income.php" class="nav-link py-3">Dodaj przychód</a>
             </li>
             <li class="nav-item">
-              <a href="./expense.html" class="nav-link py-3">Dodaj wydatek</a>
+              <a href="./expense.php" class="nav-link py-3">Dodaj wydatek</a>
             </li>
             <li class="nav-item">
-              <a href="./summary.html" class="nav-link py-3"
+              <a href="./summary.php" class="nav-link py-3"
                 >Przeglądaj bilans</a
               >
             </li>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['loggedUserId'])) {
               <a href="#" class="nav-link py-3">Ustawienia</a>
             </li>
             <li class="nav-item">
-              <a href="./index.html" class="nav-link py-3">Wyloguj</a>
+              <a href="./logout.php" class="nav-link py-3">Wyloguj</a>
             </li>
           </ul>
         </div>
