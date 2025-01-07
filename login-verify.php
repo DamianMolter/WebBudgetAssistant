@@ -20,7 +20,6 @@ if (isset($_POST['email'])) {
             $user = $loginQuery->fetch();
 
             if(password_verify($password, $user['password'])) {
-                  $_SESSION['isUserLogged'] = true;
                   $_SESSION['loggedUserId'] = $user['id'];
                   unset($_SESSION['loginError']);
                   header('Location: summary.php');

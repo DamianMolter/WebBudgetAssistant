@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(isset($_SESSION['isUserLogged']) && $_SESSION['isUserLogged']==true){
+if(isset($_SESSION['loggedUserId'])){
   header('Location: summary.php');
   exit();
 }
