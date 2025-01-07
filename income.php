@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['loggedUserId'])) {
+  header('Location: login.php');
+  exit();
+}?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -102,7 +108,7 @@
     <div class="container">
       <main>
         <div class="py-5 text-center">
-          <h2>Dodaj wydatek</h2>
+          <h2>Dodaj przychód</h2>
         </div>
 
         <div class="row g-5">
@@ -129,39 +135,15 @@
                   <input id="startDate" class="form-control" type="date" />
                 </div>
 
-                <div class="col-md-5">
-                  <label for="country" class="form-label"
-                    >Sposób płatności</label
-                  >
-                  <select class="form-select" id="country" required="">
-                    <option value="">Wybierz</option>
-                    <option>Karta debetowa</option>
-                    <option>Karta kredytowa</option>
-                    <option>Gotówka</option>
-                  </select>
-                </div>
 
                 <div class="col-md-4">
                   <label for="state" class="form-label">Kategoria</label>
                   <select class="form-select" id="state" required="">
                     <option value="">Wybierz kategorię</option>
-                    <option>Jedzenie</option>
-                    <option>Mieszkanie</option>
-                    <option>Transport</option>
-                    <option>Telekomunikacja</option>
-                    <option>Opieka zdrowotna</option>
-                    <option>Ubranie</option>
-                    <option>Higiena</option>
-                    <option>Dzieci</option>
-                    <option>Rozrywka</option>
-                    <option>Wycieczka</option>
-                    <option>Szkolenia</option>
-                    <option>Książki</option>
-                    <option>Oszczędności</option>
-                    <option>Emerytura</option>
-                    <option>Spłata długów</option>
-                    <option>Darowizna</option>
-                    <option>Inne wydatki</option>
+                    <option>Wynagrodzenie</option>
+                    <option>Odsetki bankowe</option>
+                    <option>Sprzedaż na allegro</option>
+                    <option>Inny przychód</option>
                   </select>
                   <div class="invalid-feedback">Wybierz jedną z opcji</div>
                 </div>

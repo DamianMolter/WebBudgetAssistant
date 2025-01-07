@@ -3,9 +3,7 @@ session_start();
 if (!isset($_SESSION['loggedUserId'])) {
   header('Location: login.php');
   exit();
-}
-
-?>
+}?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,7 +83,12 @@ if (!isset($_SESSION['loggedUserId'])) {
 
   <header>
     <div class="text-center pt-5">
-      <h1>Twój Bilans</h1>
+      <h1><?php
+      
+      if (isset($_SESSION['loggedUserName'])) {
+        echo 'Witaj '.$_SESSION['loggedUserName'].', ';
+      }
+      ?>oto twój Bilans</h1>
     </div>
   </header>
 
