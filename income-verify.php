@@ -2,7 +2,7 @@
 session_start();
 
 if ($_POST['incomeCategory'] == 0 || $_POST['amount'] == null) {
-      $_SESSION['incomeError'] = true;
+      $_SESSION['inputError'] = true;
       header('Location: income.php');
       exit();
 }

@@ -147,9 +147,9 @@ if (!isset($_SESSION['loggedUserId'])) {
             }
 
             
-            if (isset($_SESSION['incomeError'])) {
+            if (isset($_SESSION['inputError'])) {
               echo "<span class='error'>Podano błędne dane!</span>";
-              unset($_SESSION['incomeError']);
+              unset($_SESSION['inputError']);
             }
             ?>
 
