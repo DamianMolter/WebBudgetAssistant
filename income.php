@@ -95,8 +95,12 @@ if (!isset($_SESSION['loggedUserId'])) {
               <div class="col-3">
                 <label for="address" class="form-label">Kwota</label>
                 <div class="input-group">
-                  <input type="number" min="0" step="5" class="form-control"
-                    aria-label="Cash amount (with dot and two decimal places)" name="amount" />
+                  <input type="number" 
+                         min="0" 
+                         step="5" 
+                         class="form-control"
+                         aria-label="Cash amount (with dot and two decimal places)" 
+                         name="amount" />
                   <span class="input-group-text">zł</span>
                 </div>
               </div>
@@ -140,6 +144,12 @@ if (!isset($_SESSION['loggedUserId'])) {
             if (isset($_SESSION['success'])) {
               echo '<p class = "success">Przychód został pomyślnie dodany!</p>';
               unset($_SESSION['success']);
+            }
+
+            
+            if (isset($_SESSION['incomeError'])) {
+              echo "<span class='error'>Podano błędne dane!</span>";
+              unset($_SESSION['incomeError']);
             }
             ?>
 

@@ -114,16 +114,17 @@ if (!isset($_SESSION['loggedUserId'])) {
         <div class="row g-5">
           <div class="col-md-12 col-lg-12 text-center">
             <h4 class="mb-3">Szczegóły transakcji</h4>
-            <form class="needs-validation" novalidate="">
+            <form class="needs-validation" novalidate="" action="expense-verify.php" method="post">
               <div class="row g-3 d-flex justify-content-center">
                 <div class="col-3">
                   <label for="address" class="form-label">Kwota</label>
                   <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Cash amount (with dot and two decimal places)"
-                    />
+                  <input type="number" 
+                         min="0" 
+                         step="5" 
+                         class="form-control"
+                         aria-label="Cash amount (with dot and two decimal places)" 
+                         name="amount" />
                     <span class="input-group-text">zł</span>
                   </div>
                 </div>
@@ -132,18 +133,31 @@ if (!isset($_SESSION['loggedUserId'])) {
                   <label for="address2" class="form-label"
                     >Data transakcji</label
                   >
-                  <input id="startDate" class="form-control" type="date" />
+                  <input id="startDate" class="form-control" type="date" name="date" />
                 </div>
 
                 <div class="col-md-5">
                   <label for="country" class="form-label"
                     >Sposób płatności</label
                   >
-                  <select class="form-select" id="country" required="">
-                    <option value="">Wybierz</option>
-                    <option>Karta debetowa</option>
-                    <option>Karta kredytowa</option>
-                    <option>Gotówka</option>
+                  <select class="form-select" id="country" required="" name="paymentMethod">
+                    <option value="0">Wybierz metodę płatności</option>
+                  <?php
+
+                  require_once 'connect.php';
+                  $loadPaymentMethodsQuery = $db->prepare('SELECT id, name FROM payment_methods_assigned_to_users
+                                                                WHERE user_id=:userId');
+                  $loadPaymentMethodsQuery->bindValue(':userId', $_SESSION['loggedUserId'], PDO::PARAM_INT);
+                  $loadPaymentMethodsQuery->execute();
+
+                  $paymentMethods = $loadPaymentMethodsQuery->fetchAll();
+
+                  foreach ($paymentMethods as $paymentMethod) {
+                    echo '<option value = "' . $paymentMethod['id'] . '">' . $paymentMethod['name'] . '</option>';
+                  }
+                  ?>  
+                
+                    
                   </select>
                 </div>
 
