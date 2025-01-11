@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedUserId'])) {
           </li>
           <li>
             <button class="dropdown-item" type="button">
-              <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+              <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
             </button>
           </li>
           <li>
@@ -68,7 +68,7 @@ if (!isset($_SESSION['loggedUserId'])) {
             <a href="./expense.php" class="nav-link py-3">Dodaj wydatek</a>
           </li>
           <li class="nav-item">
-            <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+            <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link py-3">Ustawienia</a>

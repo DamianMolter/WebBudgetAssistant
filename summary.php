@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['loggedUserId'])) {
   header('Location: login.php');
   exit();
-}?>
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedUserId'])) {
           </li>
           <li>
             <button class="dropdown-item" type="button">
-              <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+              <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
             </button>
           </li>
           <li>
@@ -68,7 +68,7 @@ if (!isset($_SESSION['loggedUserId'])) {
             <a href="./expense.php" class="nav-link py-3">Dodaj wydatek</a>
           </li>
           <li class="nav-item">
-            <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+            <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link py-3">Ustawienia</a>
@@ -84,9 +84,9 @@ if (!isset($_SESSION['loggedUserId'])) {
   <header>
     <div class="text-center pt-5">
       <h1><?php
-      
+
       if (isset($_SESSION['loggedUserName'])) {
-        echo 'Witaj '.$_SESSION['loggedUserName'].', ';
+        echo 'Witaj ' . $_SESSION['loggedUserName'] . ', ';
       }
       ?>oto twój Bilans</h1>
     </div>
@@ -99,9 +99,9 @@ if (!isset($_SESSION['loggedUserId'])) {
           Niestandardowy
         </button>
         <ul class="dropdown-menu">
-          <li><a class="nav-link py-3" href="#">Bieżący miesiąc</a></li>
-          <li><a class="nav-link py-3" href="#">Poprzedni miesiąc</a></li>
-          <li><a class="nav-link py-3" href="#">Bieżący rok</a></li>
+          <li><a class="nav-link py-3" href="./summary-current-month.php">Bieżący miesiąc</a></li>
+          <li><a class="nav-link py-3" href="./summary-previous-month.php">Poprzedni miesiąc</a></li>
+          <li><a class="nav-link py-3" href="./summary-current-year.php">Bieżący rok</a></li>
           <li>
             <a class="nav-link py-3" href="#" data-bs-toggle="modal" data-bs-target="#customPeriod">Okres
               niestandardowy</a>
@@ -119,20 +119,23 @@ if (!isset($_SESSION['loggedUserId'])) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div>
-                <h5>Początek okresu:</h5>
-                <input id="startDate" class="form-control" type="date" />
-              </div>
-              <div>
-                <h5>Koniec okresu:</h5>
-                <input id="endDate" class="form-control" type="date" />
-              </div>
+              <form action="./summary-custom-period.php" method="post">
+                <div>
+                  <h5>Początek okresu:</h5>
+                  <input id="startDate" class="form-control" type="date" name="beginDate"/>
+                </div>
+                <div>
+                  <h5>Koniec okresu:</h5>
+                  <input id="endDate" class="form-control" type="date" name="endDate"/>
+                </div>
+              </form>
+
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                 Anuluj
               </button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
                 Akceptuj
               </button>
             </div>
