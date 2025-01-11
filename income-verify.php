@@ -3,11 +3,12 @@ session_start();
 
 if ($_POST['incomeCategory'] == 0 || $_POST['amount'] == null) {
       $_SESSION['inputError'] = true;
+      $_SESSION['givenAmount'] = $_POST['amount'];
       header('Location: income.php');
       exit();
 }
 
-if ($_SESSION['date']==NULL) {
+if ($_POST['date']==NULL) {
       $date = date('Y-m-d');
 }
 

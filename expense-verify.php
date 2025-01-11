@@ -4,6 +4,7 @@ session_start();
 
 if ($_POST['expenseCategory'] == 0 || $_POST['paymentMethod'] == 0 || $_POST['amount'] == null) {
       $_SESSION['inputError'] = true;
+      $_SESSION['givenAmount'] = $_POST['amount'];
       header('Location: expense.php');
       exit();
 }

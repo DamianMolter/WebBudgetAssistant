@@ -42,9 +42,25 @@ h4, h5 {
   color: #004225;
 }
 
-.error{
+.action-status{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 100px;
+}
+
+p.success{
+  color: #FFB000;
+  font-weight: bolder;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+p.error{
   color: red;
   font-weight: bolder;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 label{
@@ -195,11 +211,6 @@ p{
 
 .dropdown ul{
   background-color: #004225;
-}
-
-p.success{
-  color: #FFB000;
-  font-weight: bolder;
 }
 
 @media(max-width: 1200px){
