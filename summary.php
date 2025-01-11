@@ -128,7 +128,7 @@ if (!isset($_SESSION['loggedUserId'])) {
                   <h5>Koniec okresu:</h5>
                   <input id="endDate" class="form-control" type="date" name="endDate"/>
                 </div>
-              </form>
+              
 
             </div>
             <div class="modal-footer">
@@ -139,6 +139,7 @@ if (!isset($_SESSION['loggedUserId'])) {
                 Akceptuj
               </button>
             </div>
+            </form>
           </div>
         </div>
       </div>

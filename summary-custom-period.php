@@ -6,3 +6,7 @@ if (!isset($_SESSION['loggedUserId'])) {
       exit();
 }
 
+$beginDate = $_POST['beginDate'];
+$endDate = $_POST['endDate'];
+
+echo $beginDate.' / '.$endDate;
