@@ -86,20 +86,20 @@ if (!isset($_SESSION['loggedUserId'])) {
       <div class="py-5 text-center">
         <h2>Dodaj wydatek</h2>
       </div>
-      <div class="action-status">
+      
         <?php
         if (isset($_SESSION['success'])) {
-          echo '<p class = "success">Wydatek został pomyślnie dodany!</p>';
+          echo '<div class = "action-status"><p class = "success">Wydatek został pomyślnie dodany!</p></div>';
           unset($_SESSION['success']);
         }
 
 
         if (isset($_SESSION['inputError'])) {
-          echo "<p class='error'>Podano błędne lub niekompletne informacje!</p>";
+          echo '<div class = "action-status"><p class= "error">Podano błędne lub niekompletne informacje!</p></div>';
           unset($_SESSION['inputError']);
         }
         ?>
-      </div>
+      
 
 
       <div class="row g-5">

@@ -14,6 +14,8 @@ if ($_POST['incomeCategory'] == 0 || $_POST['amount'] == null) {
 
 if ($_POST['date']==NULL) {
       $date = date('Y-m-d');
+}else{
+      $date = $_POST['date'];
 }
 
 $amount = round($_POST['amount'], 2, PHP_ROUND_HALF_UP);
