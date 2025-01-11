@@ -86,6 +86,21 @@ if (!isset($_SESSION['loggedUserId'])) {
       <div class="py-5 text-center">
         <h2>Dodaj wydatek</h2>
       </div>
+      <div class="action-status">
+        <?php
+        if (isset($_SESSION['success'])) {
+          echo '<p class = "success">Wydatek został pomyślnie dodany!</p>';
+          unset($_SESSION['success']);
+        }
+
+
+        if (isset($_SESSION['inputError'])) {
+          echo "<p class='error'>Podano błędne lub niekompletne informacje!</p>";
+          unset($_SESSION['inputError']);
+        }
+        ?>
+      </div>
+
 
       <div class="row g-5">
         <div class="col-md-12 col-lg-12 text-center">
@@ -96,7 +111,13 @@ if (!isset($_SESSION['loggedUserId'])) {
                 <label for="address" class="form-label">Kwota</label>
                 <div class="input-group">
                   <input type="number" min="0" step="5" class="form-control"
-                    aria-label="Cash amount (with dot and two decimal places)" name="amount" />
+                    aria-label="Cash amount (with dot and two decimal places)" name="amount" value="<?php
+                    if (isset($_SESSION['inputError'])) {
+                      echo $_SESSION['givenAmount'];
+                      unset($_SESSION['givenAmount']);
+                      unset($_SESSION['inputError']);
+                    }
+                    ?>" />
                   <span class="input-group-text">zł</span>
                 </div>
               </div>
@@ -154,18 +175,6 @@ if (!isset($_SESSION['loggedUserId'])) {
               <label for="address" class="form-label">Komentarz(opcjonalnie)</label>
               <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="expenseComment"></textarea>
             </div>
-            <?php
-            if (isset($_SESSION['success'])) {
-              echo '<p class = "success">Wydatek został pomyślnie dodany!</p>';
-              unset($_SESSION['success']);
-            }
-
-
-            if (isset($_SESSION['inputError'])) {
-              echo "<span class='error'>Podano błędne dane!</span>";
-              unset($_SESSION['inputError']);
-            }
-            ?>
             <button class="w-100 btn btn-primary btn-lg" type="submit">
               Zapisz
             </button>
