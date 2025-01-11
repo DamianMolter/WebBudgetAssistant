@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['loggedUserId'])) {
+      header('Location: login.php');
+      exit();
+    }
 
 
 if ($_POST['expenseCategory'] == 0 || $_POST['paymentMethod'] == 0 || $_POST['amount'] == null) {
