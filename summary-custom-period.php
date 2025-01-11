@@ -6,7 +6,7 @@ if (!isset($_SESSION['loggedUserId'])) {
       exit();
 }
 
-$beginDate = $_POST['beginDate'];
-$endDate = $_POST['endDate'];
+$_SESSION['beginDate'] = $_POST['beginDate'];
+$_SESSION['endDate'] = $_POST['endDate'];
 
-echo $beginDate.' / '.$endDate;
+header('Location: summary.php');

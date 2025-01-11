@@ -6,7 +6,7 @@ if (!isset($_SESSION['loggedUserId'])) {
       exit();
 }
 
-$beginDate = date('Y-01-01');
-$endDate = date('Y-12-31');
+$_SESSION['beginDate'] = date('Y-01-01');
+$_SESSION['endDate'] = date('Y-12-31');
 
-echo $beginDate.' / '.$endDate;
+header('Location: summary.php');
