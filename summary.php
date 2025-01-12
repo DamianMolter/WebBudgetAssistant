@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['loggedUserId'])) {
   header('Location: login.php');
   exit();
-}?>
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedUserId'])) {
           </li>
           <li>
             <button class="dropdown-item" type="button">
-              <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+              <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
             </button>
           </li>
           <li>
@@ -68,7 +68,7 @@ if (!isset($_SESSION['loggedUserId'])) {
             <a href="./expense.php" class="nav-link py-3">Dodaj wydatek</a>
           </li>
           <li class="nav-item">
-            <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+            <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link py-3">Ustawienia</a>
@@ -84,9 +84,9 @@ if (!isset($_SESSION['loggedUserId'])) {
   <header>
     <div class="text-center pt-5">
       <h1><?php
-      
+
       if (isset($_SESSION['loggedUserName'])) {
-        echo 'Witaj '.$_SESSION['loggedUserName'].', ';
+        echo 'Witaj ' . $_SESSION['loggedUserName'] . ', ';
       }
       ?>oto twój Bilans</h1>
     </div>
@@ -99,9 +99,9 @@ if (!isset($_SESSION['loggedUserId'])) {
           Niestandardowy
         </button>
         <ul class="dropdown-menu">
-          <li><a class="nav-link py-3" href="#">Bieżący miesiąc</a></li>
-          <li><a class="nav-link py-3" href="#">Poprzedni miesiąc</a></li>
-          <li><a class="nav-link py-3" href="#">Bieżący rok</a></li>
+          <li><a class="nav-link py-3" href="./summary-current-month.php">Bieżący miesiąc</a></li>
+          <li><a class="nav-link py-3" href="./summary-previous-month.php">Poprzedni miesiąc</a></li>
+          <li><a class="nav-link py-3" href="./summary-current-year.php">Bieżący rok</a></li>
           <li>
             <a class="nav-link py-3" href="#" data-bs-toggle="modal" data-bs-target="#customPeriod">Okres
               niestandardowy</a>
@@ -119,23 +119,27 @@ if (!isset($_SESSION['loggedUserId'])) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div>
-                <h5>Początek okresu:</h5>
-                <input id="startDate" class="form-control" type="date" />
-              </div>
-              <div>
-                <h5>Koniec okresu:</h5>
-                <input id="endDate" class="form-control" type="date" />
-              </div>
+              <form action="./summary-custom-period.php" method="post">
+                <div>
+                  <h5>Początek okresu:</h5>
+                  <input id="startDate" class="form-control" type="date" name="beginDate" />
+                </div>
+                <div>
+                  <h5>Koniec okresu:</h5>
+                  <input id="endDate" class="form-control" type="date" name="endDate" />
+                </div>
+
+
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">
                 Anuluj
               </button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
                 Akceptuj
               </button>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -149,22 +153,40 @@ if (!isset($_SESSION['loggedUserId'])) {
             <td>Kategoria</td>
             <td>Kwota (PLN)</td>
           </tr>
-          <tr class="even-row">
-            <td>Wynagrodzenie</td>
-            <td>4300</td>
-          </tr>
-          <tr class="odd-row">
-            <td>Odsetki bankowe</td>
-            <td>20</td>
-          </tr>
-          <tr class="even-row">
-            <td>Sprzedaż na allegro</td>
-            <td>200</td>
-          </tr>
-          <tr class="odd-row col-title">
-            <td>Suma</td>
-            <td>4520</td>
-          </tr>
+          <?php
+          require_once 'connect.php';
+          $incomeSummaryQuery = $db->prepare('SELECT name, SUM(amount) AS amountSum FROM incomes
+INNER JOIN incomes_category_assigned_to_users ON incomes_category_assigned_to_users.id=incomes.income_category_assigned_to_user_id
+WHERE incomes.user_id = :loggedUserId AND incomes.date_of_income BETWEEN :beginDate AND :endDate
+GROUP BY name
+ORDER BY amountSUM DESC');
+          $incomeSummaryQuery->bindValue(':loggedUserId', $_SESSION['loggedUserId'], PDO::PARAM_INT);
+          $incomeSummaryQuery->bindValue(':beginDate', $_SESSION['beginDate'], PDO::PARAM_STR);
+          $incomeSummaryQuery->bindValue(':endDate', $_SESSION['endDate'], PDO::PARAM_STR);
+          $incomeSummaryQuery->execute();
+
+          $results = $incomeSummaryQuery->fetchAll();
+          $howMany = $incomeSummaryQuery->rowCount();
+
+          $oddOrEven = true;
+          $incomeCategoriesSum = 0;
+          foreach ($results as $result) {
+            if ($oddOrEven) {
+              echo '<tr class="even-row"><td>'. $result['name'] .'</td><td>'.$result['amountSum'].'</td></tr>';
+              $oddOrEven = false;
+              $incomeCategoriesSum +=$result['amountSum'];
+            } else {
+              echo '<tr class="odd-row"><td>'.$result['name'].'</td><td>'.$result['amountSum'].'</td></tr>';
+              $oddOrEven = true;
+              $incomeCategoriesSum +=$result['amountSum'];
+            }
+          }
+          if ($oddOrEven) {
+            echo '<tr class="even-row"><td>Suma</td><td>'.$incomeCategoriesSum.'</td></tr>';
+          } else{
+            echo '<tr class="odd-row col-title"><td>Suma</td><td>'.$incomeCategoriesSum.'</td></tr>';
+          }
+          ?>
         </table>
       </div>
       <div class="text-center">
@@ -174,22 +196,41 @@ if (!isset($_SESSION['loggedUserId'])) {
             <td>Kategoria</td>
             <td>Kwota (PLN)</td>
           </tr>
-          <tr class="even-row">
-            <td>Jedzenie</td>
-            <td>2000</td>
-          </tr>
-          <tr class="odd-row">
-            <td>Ubrania</td>
-            <td>500</td>
-          </tr>
-          <tr class="even-row">
-            <td>Mieszkanie</td>
-            <td>1000</td>
-          </tr>
-          <tr class="odd-row col-title">
-            <td>Suma</td>
-            <td>3500</td>
-          </tr>
+          <?php
+          require_once 'connect.php';
+          $expenseSummaryQuery = $db->prepare('SELECT name, SUM(amount) AS amountSum FROM expenses
+INNER JOIN expenses_category_assigned_to_users ON expenses_category_assigned_to_users.id=expenses.expense_category_assigned_to_user_id
+WHERE expenses.user_id = :loggedUserId AND expenses.date_of_expense BETWEEN :beginDate AND :endDate
+GROUP BY name
+ORDER BY amountSUM DESC');
+          $expenseSummaryQuery->bindValue(':loggedUserId', $_SESSION['loggedUserId'], PDO::PARAM_INT);
+          $expenseSummaryQuery->bindValue(':beginDate', $_SESSION['beginDate'], PDO::PARAM_STR);
+          $expenseSummaryQuery->bindValue(':endDate', $_SESSION['endDate'], PDO::PARAM_STR);
+          $expenseSummaryQuery->execute();
+
+          $results = $expenseSummaryQuery->fetchAll();
+          $howMany = $expenseSummaryQuery->rowCount();
+
+          $oddOrEven = true;
+          $expenseCategoriesSum = 0;
+          foreach ($results as $result) {
+            if ($oddOrEven) {
+              echo '<tr class="even-row"><td>'. $result['name'] .'</td><td>'.$result['amountSum'].'</td></tr>';
+              $oddOrEven = false;
+              $expenseCategoriesSum +=$result['amountSum'];
+            } else {
+              echo '<tr class="odd-row"><td>'.$result['name'].'</td><td>'.$result['amountSum'].'</td></tr>';
+              $oddOrEven = true;
+              $expenseCategoriesSum +=$result['amountSum'];
+            }
+          }
+          if ($oddOrEven) {
+            echo '<tr class="even-row"><td>Suma</td><td>'.$expenseCategoriesSum.'</td></tr>';
+          } else{
+            echo '<tr class="odd-row col-title"><td>Suma</td><td>'.$expenseCategoriesSum.'</td></tr>';
+          }
+          $finalBalance = $incomeCategoriesSum - $expenseCategoriesSum;
+  ?>
         </table>
         <div class="table"></div>
       </div>
@@ -197,18 +238,25 @@ if (!isset($_SESSION['loggedUserId'])) {
 
     <div class="container text-center py-5">
       <h6>
-        Twój bilans wynosi 1020 PLN! Gratulacje! Doskonale zarządzasz swoimi
-        finansami!
+        Twój bilans wynosi <?php echo $finalBalance; ?> PLN! 
+        <?php
+        if ($finalBalance >= 0) {
+          echo 'Gratulacje! Doskonale zarządzasz swoimi finansami!';
+        } else {
+          echo 'Musisz popracować nad zarządzaniem finansami';
+        }
+        ?>
+        
       </h6>
     </div>
   </main>
 
   <hr />
   <aside>
-    <div class="container chart d-flex justify-content-center">
+    <!--<div class="container chart d-flex justify-content-center">
       <div id="income-piechart"></div>
       <div id="expense-piechart"></div>
-    </div>
+    </div>-->
   </aside>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

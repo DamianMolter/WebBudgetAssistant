@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedUserId'])) {
           </li>
           <li>
             <button class="dropdown-item" type="button">
-              <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+              <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
             </button>
           </li>
           <li>
@@ -68,7 +68,7 @@ if (!isset($_SESSION['loggedUserId'])) {
             <a href="./expense.php" class="nav-link py-3">Dodaj wydatek</a>
           </li>
           <li class="nav-item">
-            <a href="./summary.php" class="nav-link py-3">Przeglądaj bilans</a>
+            <a href="./summary-current-month.php" class="nav-link py-3">Przeglądaj bilans</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link py-3">Ustawienia</a>
@@ -86,20 +86,20 @@ if (!isset($_SESSION['loggedUserId'])) {
       <div class="py-5 text-center">
         <h2>Dodaj przychód</h2>
       </div>
-      <div class="action-status">
+      
           <?php
           if (isset($_SESSION['success'])) {
-            echo '<p class = "success">Przychód został pomyślnie dodany!</p>';
+            echo '<div class = "action-status"><p class = "success">Przychód został pomyślnie dodany!</p></div>';
             unset($_SESSION['success']);
           }
 
 
           if (isset($_SESSION['inputError'])) {
-            echo "<p class='error'>Podano błędne lub niekompletne informacje!</p>";
+            echo '<div class="action-status"><p class="error">Podano błędne lub niekompletne informacje!</p></div>';
           }
           ?>
 
-        </div>
+        
       <div class="row g-5">
         <div class="col-md-12 col-lg-12 text-center">
           <h4 class="mb-3">Szczegóły transakcji</h4>

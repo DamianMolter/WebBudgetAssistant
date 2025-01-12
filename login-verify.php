@@ -23,7 +23,7 @@ if (isset($_POST['email'])) {
                   $_SESSION['loggedUserId'] = $user['id'];
                   $_SESSION['loggedUserName'] = $user['username'];
                   unset($_SESSION['loginError']);
-                  header('Location: summary.php');
+                  header('Location: summary-current-month.php');
                   exit();
             } else {
                   $_SESSION['loginError']=true;
