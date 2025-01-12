@@ -247,17 +247,16 @@ ORDER BY amountSUM DESC');
         }
         ?>
         
-        
       </h6>
     </div>
   </main>
 
   <hr />
   <aside>
-    <div class="container chart d-flex justify-content-center">
+    <!--<div class="container chart d-flex justify-content-center">
       <div id="income-piechart"></div>
       <div id="expense-piechart"></div>
-    </div>
+    </div>-->
   </aside>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
