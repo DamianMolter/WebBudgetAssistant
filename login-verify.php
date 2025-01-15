@@ -18,8 +18,15 @@ if (isset($_POST['email'])) {
             $loginQuery->execute();
 
             $user = $loginQuery->fetch();
-
-            if(password_verify($password, $user['password'])) {
+			
+			if($loginQuery->rowCount() == 0){
+				$_SESSION['loginError']=true;
+				$_SESSION['loginEmail']=$_POST['email'];
+				$_SESSION['loginPassword']=$_POST['password'];
+				
+				header('Location: login.php');
+			} else{
+				if(password_verify($password, $user['password'])) {
                   $_SESSION['loggedUserId'] = $user['id'];
                   $_SESSION['loggedUserName'] = $user['username'];
                   unset($_SESSION['loginError']);
@@ -32,6 +39,7 @@ if (isset($_POST['email'])) {
                   header("Location: login.php");
                   exit();
             }
+			}
       }
 } else {
       header('Location: login.php');
