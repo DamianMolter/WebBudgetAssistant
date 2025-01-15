@@ -1,41 +1,41 @@
-      // Load google charts
-      google.charts.load("current", { packages: ["corechart"] });
-      google.charts.setOnLoadCallback(drawChartIncome);
-      google.charts.setOnLoadCallback(drawChartExpense);
+var barColors = ["red", "green","blue","orange","brown", "yellow", "pink"];
+var incomeCategoriesFromTable = document.querySelectorAll("td.icategory")
+var incomeAmountsFromTable = document.querySelectorAll("td.icategory-amount");
 
-        // Draw the chart and set the chart values
-      function drawChartIncome() {
-          var data = google.visualization.arrayToDataTable([
-            ["Tytuł", "Kwota"],
-            ["Wynagrodzenie", 4300],
-            ["Odsetki bankowe", 50],
-            ["Sprzedaż na allegro", 200],
-          ]);
+var expenseCategoriesFromTable = document.querySelectorAll("td.ecategory");
+var expenseAmountsFromTable = document.querySelectorAll("td.ecategory-amount");
 
-          // Optional; add a title and set the width and height of the chart
-          var options = { title: "Przychody", width: 550, height: 400 };
+new Chart("incomesChart", {
+  type: "pie",
+  data: {
+    labels: incomeAmountsFromTable,
+    datasets: [{
+      backgroundColor: barColors,
+      data: incomeAmountsFromTable
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Twoje Przychody"
+    }
+  }
+});
 
-          // Display the chart inside the <div> element with id="piechart"
-          var chart = new google.visualization.PieChart(
-            document.getElementById("income-piechart")
-          );
-          chart.draw(data, options);
-        }
+new Chart("expensesChart", {
+  type: "pie",
+  data: {
+    labels: expenseCategoriesFromTable,
+    datasets: [{
+      backgroundColor: barColors,
+      data: expenseAmountsFromTable
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Twoje Wydatki"
+    }
+  }
+});
 
-      function drawChartExpense() {
-          var data = google.visualization.arrayToDataTable([
-            ["Tytuł", "Kwota"],
-            ["Jedzenie", 2000],
-            ["Ubrania", 500],
-            ["Mieszkanie", 1000],
-          ]);
-
-          // Optional; add a title and set the width and height of the chart
-          var options = { title: "Wydatki", width: 550, height: 400 };
-
-          // Display the chart inside the <div> element with id="piechart"
-          var chart = new google.visualization.PieChart(
-            document.getElementById("expense-piechart")
-          );
-          chart.draw(data, options);
-        }
