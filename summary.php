@@ -19,6 +19,7 @@ if (!isset($_SESSION['loggedUserId'])) {
   <link
     href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 
 <body>
@@ -172,19 +173,19 @@ ORDER BY amountSUM DESC');
           $incomeCategoriesSum = 0;
           foreach ($results as $result) {
             if ($oddOrEven) {
-              echo '<tr class="even-row"><td>'. $result['name'] .'</td><td>'.$result['amountSum'].'</td></tr>';
+              echo '<tr class="even-row"><td class="icategory">' . $result['name'] . '</td><td class="icategory-amount">' . $result['amountSum'] . '</td></tr>';
               $oddOrEven = false;
-              $incomeCategoriesSum +=$result['amountSum'];
+              $incomeCategoriesSum += $result['amountSum'];
             } else {
-              echo '<tr class="odd-row"><td>'.$result['name'].'</td><td>'.$result['amountSum'].'</td></tr>';
+              echo '<tr class="odd-row"><td class="icategory">' . $result['name'] . '</td><td class="icategory-amount">' . $result['amountSum'] . '</td></tr>';
               $oddOrEven = true;
-              $incomeCategoriesSum +=$result['amountSum'];
+              $incomeCategoriesSum += $result['amountSum'];
             }
           }
           if ($oddOrEven) {
-            echo '<tr class="even-row"><td>Suma</td><td>'.$incomeCategoriesSum.'</td></tr>';
-          } else{
-            echo '<tr class="odd-row col-title"><td>Suma</td><td>'.$incomeCategoriesSum.'</td></tr>';
+            echo '<tr class="even-row"><td>Suma</td><td>' . $incomeCategoriesSum . '</td></tr>';
+          } else {
+            echo '<tr class="odd-row col-title"><td>Suma</td><td>' . $incomeCategoriesSum . '</td></tr>';
           }
           ?>
         </table>
@@ -215,22 +216,22 @@ ORDER BY amountSUM DESC');
           $expenseCategoriesSum = 0;
           foreach ($results as $result) {
             if ($oddOrEven) {
-              echo '<tr class="even-row"><td>'. $result['name'] .'</td><td>'.$result['amountSum'].'</td></tr>';
+              echo '<tr class="even-row"><td class="ecategory">' . $result['name'] . '</td><td class="ecategory-amount">' . $result['amountSum'] . '</td></tr>';
               $oddOrEven = false;
-              $expenseCategoriesSum +=$result['amountSum'];
+              $expenseCategoriesSum += $result['amountSum'];
             } else {
-              echo '<tr class="odd-row"><td>'.$result['name'].'</td><td>'.$result['amountSum'].'</td></tr>';
+              echo '<tr class="odd-row"><td class="ecategory">' . $result['name'] . '</td><td class="ecategory-amount">' . $result['amountSum'] . '</td></tr>';
               $oddOrEven = true;
-              $expenseCategoriesSum +=$result['amountSum'];
+              $expenseCategoriesSum += $result['amountSum'];
             }
           }
           if ($oddOrEven) {
-            echo '<tr class="even-row"><td>Suma</td><td>'.$expenseCategoriesSum.'</td></tr>';
-          } else{
-            echo '<tr class="odd-row col-title"><td>Suma</td><td>'.$expenseCategoriesSum.'</td></tr>';
+            echo '<tr class="even-row"><td>Suma</td><td>' . $expenseCategoriesSum . '</td></tr>';
+          } else {
+            echo '<tr class="odd-row col-title"><td>Suma</td><td>' . $expenseCategoriesSum . '</td></tr>';
           }
           $finalBalance = $incomeCategoriesSum - $expenseCategoriesSum;
-  ?>
+          ?>
         </table>
         <div class="table"></div>
       </div>
@@ -238,7 +239,7 @@ ORDER BY amountSUM DESC');
 
     <div class="container text-center py-5">
       <h6>
-        Twój bilans wynosi <?php echo $finalBalance; ?> PLN! 
+        Twój bilans wynosi <?php echo $finalBalance; ?> PLN!
         <?php
         if ($finalBalance >= 0) {
           echo 'Gratulacje! Doskonale zarządzasz swoimi finansami!';
@@ -246,24 +247,48 @@ ORDER BY amountSUM DESC');
           echo 'Musisz popracować nad zarządzaniem finansami';
         }
         ?>
-        
+
       </h6>
     </div>
   </main>
 
   <hr />
   <aside>
-    <!--<div class="container chart d-flex justify-content-center">
-      <div id="income-piechart"></div>
-      <div id="expense-piechart"></div>
-    </div>-->
+    <div class="container chart d-flex justify-content-center">
+      <canvas id="incomesChart" style="width:100%;max-width:700px"></canvas>
+      <canvas id="espensesChart" style="width:100%;max-width:700px"></canvas>
+      <script>
+        const incomeCategories = document.querySelectorAll("td.icategory");
+        const incomeLength = incomeCategories.length;
+        const incomeAmounts = document.querySelectorAll("td.icategory-amount");
+        const expenseCategories = document.querySelectorAll("td.ecategory");
+        const expenseAmounts = document.querySelectorAll("td.ecategory-amount");
+        const barColors = ["red", "green", "blue", "orange", "brown"];
+
+        new Chart("incomesChart", {
+          type: "pie",
+          data: {
+            labels: incomeCategories,
+            datasets: [{
+              backgroundColor: barColors,
+              data: incomeAmounts
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Twoje przychody"
+            }
+          }
+        });</script>
+    </div>
   </aside>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="./index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
 </body>
 
 </html>
