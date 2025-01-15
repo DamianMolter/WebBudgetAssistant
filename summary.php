@@ -256,22 +256,44 @@ ORDER BY amountSUM DESC');
   <aside>
     <div class="container chart d-flex justify-content-center">
       <canvas id="incomesChart" style="width:100%;max-width:700px"></canvas>
-      <canvas id="espensesChart" style="width:100%;max-width:700px"></canvas>
+      <canvas id="expensesChart" style="width:100%;max-width:700px"></canvas>
       <script>
+        const barColors = ["red", "green", "blue", "orange", "brown"];
         const incomeCategories = document.querySelectorAll("td.icategory");
-        const incomeLength = incomeCategories.length;
         const incomeAmounts = document.querySelectorAll("td.icategory-amount");
+        const incomeLength = incomeCategories.length;
+        var incomeNames = []; 
+        var incomeValues = [];
+        var singleIncomeName = 0
+        var singleIncomeValue = 0;
+        for (var i = 0; i < incomeLength; i++) {
+          var singleIncomeName =incomeCategories[i].textContent;
+          var singleIncomeValue =incomeAmounts[i].textContent;
+          incomeNames.push(singleIncomeName);
+          incomeValues.push(singleIncomeValue);
+        }
+        
         const expenseCategories = document.querySelectorAll("td.ecategory");
         const expenseAmounts = document.querySelectorAll("td.ecategory-amount");
-        const barColors = ["red", "green", "blue", "orange", "brown"];
+        const expenseLength = expenseCategories.length;
+        var expenseNames = []; 
+        var expenseValues = [];
+        var singleExpenseName = 0
+        var singleExpenseValue = 0;
+        for (var i = 0; i < expenseLength; i++) {
+          var singleExpenseName =expenseCategories[i].textContent;
+          var singleExpenseValue =expenseAmounts[i].textContent;
+          expenseNames.push(singleExpenseName);
+          expenseValues.push(singleExpenseValue);
+        }
 
         new Chart("incomesChart", {
           type: "pie",
           data: {
-            labels: incomeCategories,
+            labels: incomeNames,
             datasets: [{
               backgroundColor: barColors,
-              data: incomeAmounts
+              data: incomeValues
             }]
           },
           options: {
@@ -280,7 +302,25 @@ ORDER BY amountSUM DESC');
               text: "Twoje przychody"
             }
           }
-        });</script>
+        })
+        
+        new Chart("expensesChart", {
+          type: "pie",
+          data: {
+            labels: expenseNames,
+            datasets: [{
+              backgroundColor: barColors,
+              data: expenseValues
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "Twoje wydatki"
+            }
+          }
+        })
+        ;</script>
     </div>
   </aside>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
